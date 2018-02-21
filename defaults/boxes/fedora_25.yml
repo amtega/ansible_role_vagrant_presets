@@ -1,0 +1,5 @@
+---
+# Fedora 25 box
+
+name: fedora_25
+address: fedora/25-cloud-base

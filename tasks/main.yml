@@ -1,2 +1,14 @@
 ---
 # Role tasks
+
+- name: configure boxes presets
+  include_tasks: boxes.yml
+  tags:
+    - role::vagrant_presets
+    - role::vagrant_presets::boxes
+
+- name: configure vms presets
+  include_tasks: vms.yml
+  tags:
+    - role::vagrant_presets
+    - role::vagrant_presets::vms

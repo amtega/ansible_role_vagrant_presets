@@ -1,0 +1,29 @@
+---
+# Load boxes presets
+
+- block:
+    - name: search box presets
+      find:
+        paths: "{{ role_path }}/defaults/boxes"
+        patterns: "*.yml"
+      register: vagrant_presets_search_boxes_result
+
+    - name: load box presets
+      include_vars:
+        file: "{{ file.path }}"
+        name: vagrant_presets_box
+      with_items: "{{ vagrant_presets_search_boxes_result.files }}"
+      loop_control:
+        label: "{{ file.path }}"
+        loop_var: file
+      register: vagrant_presets_load_boxes_result
+
+    - name: setup fact with boxes presets
+      set_fact:
+        vagrant_presets_boxes: >-
+          {{ vagrant_presets_load_boxes_result.results
+             | map(attribute="ansible_facts.vagrant_presets_box")
+             | list }}
+  tags:
+    - role::vagrant_presets
+    - role::vagrant_presets::boxes

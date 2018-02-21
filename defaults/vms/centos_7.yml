@@ -1,0 +1,6 @@
+---
+# Centos 7 vm
+
+name: centos_7
+hostname: centos-7
+box: centos_7

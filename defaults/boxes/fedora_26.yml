@@ -1,0 +1,5 @@
+---
+# Fedora 26 box
+
+name: fedora_26
+address: fedora/26-cloud-base

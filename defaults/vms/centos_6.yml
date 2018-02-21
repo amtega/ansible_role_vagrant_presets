@@ -1,0 +1,6 @@
+---
+# Centos 6 vm
+
+name: centos_6
+hostname: centos-6
+box: centos_6

@@ -1,0 +1,7 @@
+---
+# Fedora 26 vm
+
+name: fedora_26
+hostname: fedora-26
+ansible_python_interpreter: /usr/bin/python3
+box: fedora_26

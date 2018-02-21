@@ -1,34 +1,63 @@
-# role_name
+# Ansible vagrant_presets role
 
-A brief description of the role goes here.
+This is an [Ansible](http://www.ansible.com) role to setup a set of facts with vagrant boxes and vms.
+
+This role provides also some useful filters to manage the presets.
 
 ## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Ansible >= 2.4
 
-## Role Variables
+## Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The role reads dynamically the boxes and vms config from directories 'defaults/boxes' and 'defaults/vms'.
+
+From the previous directories the role setups dynamically two variables that contain the set of presets for boxes and vms. The variables are, respectively, these ones:
+
+- vagrant_presets_boxes
+- vagrant_presets_vms
+
+## Filters
+
+The role provides these filters to manipulate the provided presets:
+
+- vagrant_presets_randomize_names: randomize the name attribute in a set of presets
+- vagrant_presets_repeat filter: repeat a preset a number of times
 
 ## Dependencies
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+N/A
 
 ## Example Playbook
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+This is an example playbook:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+---
+
+- hosts: all
+  roles:
+    - amtega.vagrant_presets
+  tasks:
+    - set_fact:
+        my_random_vms: >-
+            {{ vagrant_presets_vms | vagrant_presets_randomize_names }}
+        my_repeated_vms: >-
+            {{ vagrant_presets_vms | vagrant_presets_repeat(3) }}
+```
 
 ## Testing
 
-A description of how to run tests of the role if available.
+You can run the tests with the following commands:
+
+```shell
+$ cd amtega.vagrant_presets/test
+$ ansible-playbook main.yml
+```
 
 ## License
 
-Copyright (C) <YEAR> AMTEGA - Xunta de Galicia
+Copyright (C) 2017 AMTEGA - Xunta de Galicia
 
 This role is free software: you can redistribute it and/or modify
 it under the terms of:
@@ -44,5 +73,4 @@ GNU General Public License for more details or European Union Public License for
 
 ## Author Information
 
-- author_name 1 ([mail_adrress_1](mailto:mail_address_1))
-- author_name N ([mail_adrress_N](mailto:mail_address_N))
+- Juan Antonio Valiño García
