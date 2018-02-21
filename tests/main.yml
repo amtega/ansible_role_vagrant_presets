@@ -1,2 +1,64 @@
 ---
+
 # Tasks for tesing role
+
+- name: test vagrant_presets role
+  hosts: localhost
+  roles:
+    - amtega.vagrant_presets
+  tasks:
+    - name: test dynamic load of boxes presets
+      assert:
+        that:
+          - vagrant_presets_boxes | length > 0
+
+          - vagrant_presets_boxes
+            | selectattr('name', 'equalto', 'centos_6') | list | length > 0
+
+          - vagrant_presets_boxes
+            | selectattr('name', 'equalto', 'centos_7') | list | length > 0
+
+          - vagrant_presets_boxes
+            | selectattr('name', 'equalto', 'fedora_25') | list | length > 0
+
+          - vagrant_presets_boxes
+            | selectattr('name', 'equalto', 'fedora_26') | list | length > 0
+
+    - name: test dynamic load of vms presets
+      assert:
+        that:
+          - vagrant_presets_vms | length > 0
+
+          - vagrant_presets_vms
+            | selectattr('name', 'equalto', 'centos_6') | list | length > 0
+
+          - vagrant_presets_vms
+            | selectattr('name', 'equalto', 'centos_7') | list | length > 0
+
+          - vagrant_presets_vms
+            | selectattr('name', 'equalto', 'fedora_25') | list | length > 0
+
+          - vagrant_presets_vms
+            | selectattr('name', 'equalto', 'fedora_26') | list | length > 0
+
+    - name: test vagrant_presets_randomize_names filter
+      assert:
+        that:
+          - vagrant_presets_boxes
+            | vagrant_presets_randomize_names
+            | selectattr('name', 'equalto', 'centos_7') | list | length == 0
+
+          - vagrant_presets_vms
+            | vagrant_presets_randomize_names
+            | selectattr('name', 'equalto', 'centos_7') | list | length == 0
+
+    - name: test vagrant_presets_repeat filter
+      assert:
+        that:
+          - vagrant_presets_boxes
+            | vagrant_presets_repeat(3)
+            | length == vagrant_presets_boxes | length * 3
+
+          - vagrant_presets_vms
+            | vagrant_presets_repeat(3)
+            | length == vagrant_presets_vms | length * 3

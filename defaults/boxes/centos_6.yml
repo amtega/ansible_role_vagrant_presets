@@ -1,0 +1,5 @@
+---
+# CentOS 6 box
+
+name: centos_6
+address: centos/6

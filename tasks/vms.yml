@@ -1,0 +1,29 @@
+---
+# Load vms presets
+
+- block:
+    - name: search vm presets
+      find:
+        paths: "{{ role_path }}/defaults/vms"
+        patterns: "*.yml"
+      register: vagrant_presets_search_vms_result
+
+    - name: load vm presets
+      include_vars:
+        file: "{{ file.path }}"
+        name: vagrant_presets_vm
+      with_items: "{{ vagrant_presets_search_vms_result.files }}"
+      loop_control:
+        label: "{{ file.path }}"
+        loop_var: file
+      register: vagrant_presets_load_vms_result
+
+    - name: setup fact with vms presets
+      set_fact:
+        vagrant_presets_vms: >-
+          {{ vagrant_presets_load_vms_result.results
+             | map(attribute="ansible_facts.vagrant_presets_vm")
+             | list }}
+  tags:
+    - role::vagrant_presets
+    - role::vagrant_presets::vms
