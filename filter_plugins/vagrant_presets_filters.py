@@ -21,8 +21,16 @@ def vagrant_presets_randomize_names(presets):
         else:
             basename = "vm"
 
+        if "hostname" in preset:
+            basehostname = preset["hostname"]
+        else:
+            basehostname = "vm"
+
         seed(datetime.now())
-        preset["name"] = "{}_{}".format(basename, randint(0, 99999999))
+        random_suffix = randint(0, 99999999)
+
+        preset["name"] = "{}_{}".format(basename, random_suffix)
+        preset["hostname"] = "{}-{}".format(basehostname, random_suffix)
 
     return presets
 
