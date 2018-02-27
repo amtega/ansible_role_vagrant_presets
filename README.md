@@ -51,7 +51,7 @@ This is an example playbook:
 You can run the tests with the following commands:
 
 ```shell
-$ cd amtega.vagrant_presets/test
+$ cd amtega.vagrant_presets/tests
 $ ansible-playbook main.yml
 ```
 
@@ -73,4 +73,4 @@ GNU General Public License for more details or European Union Public License for
 
 ## Author Information
 
-- Juan Antonio Valiño García
+- Juan Antonio Valiño García.

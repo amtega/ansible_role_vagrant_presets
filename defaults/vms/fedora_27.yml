@@ -1,0 +1,7 @@
+---
+# Fedora 27 vm
+
+name: fedora_27
+hostname: fedora-27
+ansible_python_interpreter: /usr/bin/python3
+box: fedora_27

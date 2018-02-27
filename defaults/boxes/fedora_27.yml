@@ -1,0 +1,5 @@
+---
+# Fedora 27 box
+
+name: fedora_27
+address: fedora/27-cloud-base
