@@ -3,5 +3,9 @@
 
 name: fedora_27
 hostname: fedora-27
-ansible_python_interpreter: /usr/bin/python3
 box: fedora_27
+ansible_user: vagrant
+ansible_ssh_pass: vagrant
+ansible_become: true
+ansible_become_method: sudo
+ansible_python_interpreter: /usr/bin/python3
