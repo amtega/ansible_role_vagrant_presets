@@ -4,8 +4,6 @@
 name: centos_7
 hostname: centos-7
 box: centos_7
-memory: 512
-cpus: 1
 ansible_user: vagrant
 ansible_ssh_pass: vagrant
 ansible_become: true

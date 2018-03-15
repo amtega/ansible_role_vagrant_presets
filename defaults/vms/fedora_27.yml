@@ -4,8 +4,6 @@
 name: fedora_27
 hostname: fedora-27
 box: fedora_27
-memory: 512
-cpus: 1
 ansible_user: vagrant
 ansible_ssh_pass: vagrant
 ansible_become: true
