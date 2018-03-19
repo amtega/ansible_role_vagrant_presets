@@ -4,4 +4,5 @@
 name: fedora_26
 address: fedora/26-cloud-base
 playbook: "{{ vagrant_presets_files }}/bootstrap.yml"
+customized_name: fedora_26_preset
 ansible_python_interpreter: /usr/bin/python3

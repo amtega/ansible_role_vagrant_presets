@@ -4,3 +4,4 @@
 name: centos_6
 address: centos/6
 playbook: "{{ vagrant_presets_files }}/bootstrap.yml"
+customized_name: centos_6_preset
