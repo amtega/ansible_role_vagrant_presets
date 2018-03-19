@@ -52,6 +52,8 @@
 
     - name: clean yum cache
       shell: yum clean all
+      args:
+        warn: false
 
     - name: clear bash history
       shell: "cat /dev/null > ~/.bash_history && history -c"
