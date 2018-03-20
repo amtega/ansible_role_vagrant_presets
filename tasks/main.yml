@@ -1,6 +1,12 @@
 ---
 # Role tasks
 
+- name:
+  set_fact:
+    vagrant_presets_files: "{{ role_path }}/files"
+  tags:
+    - role::vagrant_presets
+
 - name: configure boxes presets
   include_tasks: boxes.yml
   tags:

@@ -1,0 +1,59 @@
+- hosts: all
+  vars:
+    ansible_become: true
+    ansible_become_method: sudo
+  tasks:
+    # Recreate structure of /usr/share/locale. Given that ansible package
+    # modules does not support reinstall mode, the workaround here is to call
+    # yum directly
+
+    - block:
+        - name: reinstall filesystem package
+          shell: "yum reinstall filesystem -y"
+          args:
+            warn: false
+          register: reinstall_filesystem_result
+          failed_when: not reinstall_filesystem_result.rc == 0
+
+        - name: install required packages
+          package:
+            name: "{{ item }}"
+            state: present
+          with_items:
+            - python2
+            - libselinux-python
+      environment:
+        http_proxy: "{{ ansible_env.http_proxy | default('') }}"
+        https_proxy: "{{ ansible_env.https_proxy | default('') }}"
+        no_proxy: "{{ ansible_env.no_proxy | default('') }}"
+
+    - name: setup root user
+      user:
+        name: root
+        shell: /bin/bash
+        group: root
+        password: >-
+          {{ "root"
+             | password_hash('sha512', 100000000000 | random | string) }}
+
+    - name: enable sshd password authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication no"
+        line: "PasswordAuthentication yes"
+        state: present
+      register: enable_password_auth_result
+
+    - name: reload sshd
+      service:
+        name: sshd
+        state: reloaded
+      when: enable_password_auth_result | changed
+
+    - name: clean yum cache
+      shell: yum clean all
+      args:
+        warn: false
+
+    - name: clear bash history
+      shell: "cat /dev/null > ~/.bash_history && history -c"
