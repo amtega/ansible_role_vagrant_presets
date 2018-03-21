@@ -1,6 +1,6 @@
 # Ansible vagrant_presets role
 
-This is an [Ansible](http://www.ansible.com) role to setup a set of facts with vagrant boxes and vms.
+This is an [Ansible](http://www.ansible.com) role to setup a set of facts with vagrant boxes and virtual machines.
 
 This role provides also some useful filters to manage the presets.
 
@@ -12,10 +12,11 @@ This role provides also some useful filters to manage the presets.
 
 The role reads dynamically the boxes and vms config from directories 'defaults/boxes' and 'defaults/vms'.
 
-From the previous directories the role setups dynamically two variables that contain the set of presets for boxes and vms. The variables are, respectively, these ones:
+From the previous directories the role setups dynamically some variables that contain the set of presets for boxes, virtual machines and the path to the files directory in this role:
 
 - vagrant_presets_boxes
 - vagrant_presets_vms
+- vagrant_presets_files
 
 ## Filters
 
