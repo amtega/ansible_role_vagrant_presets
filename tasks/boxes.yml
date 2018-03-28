@@ -12,7 +12,7 @@
       include_vars:
         file: "{{ file.path }}"
         name: vagrant_presets_box
-      with_items: "{{ vagrant_presets_search_boxes_result.files }}"
+      loop: "{{ vagrant_presets_search_boxes_result.files }}"
       loop_control:
         label: "{{ file.path }}"
         loop_var: file

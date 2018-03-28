@@ -17,11 +17,12 @@
 
         - name: install required packages
           package:
-            name: "{{ item }}"
+            name: "{{ packages }}"
             state: present
-          with_items:
-            - python2
-            - libselinux-python
+          vars:
+            packages:
+              - python2
+              - libselinux-python
       environment:
         http_proxy: "{{ ansible_env.http_proxy | default('') }}"
         https_proxy: "{{ ansible_env.https_proxy | default('') }}"
