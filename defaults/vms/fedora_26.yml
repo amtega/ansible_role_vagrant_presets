@@ -6,3 +6,6 @@ hostname: fedora-26
 box: fedora_26
 ansible_user: root
 ansible_ssh_pass: root
+options:
+  "config.ssh.forward_agent": "true"
+  "config.ssh.forward_x11": "true"

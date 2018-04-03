@@ -3,18 +3,21 @@
 
 - block:
     - name: search box presets
-      find:
+      local_action:
+        module: find
         paths: "{{ role_path }}/defaults/boxes"
         patterns: "*.yml"
       register: vagrant_presets_search_boxes_result
 
     - name: load box presets
-      include_vars:
+      local_action:
+        module: include_vars
         file: "{{ file.path }}"
         name: vagrant_presets_box
       loop: "{{ vagrant_presets_search_boxes_result.files }}"
       loop_control:
-        label: "{{ file.path }}"
+        label: >-
+          {{ file.path | regex_replace(".*(amtega.vagrant_presets.*)", "\1") }}
         loop_var: file
       register: vagrant_presets_load_boxes_result
 
