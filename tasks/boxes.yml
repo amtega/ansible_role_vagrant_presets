@@ -16,8 +16,7 @@
         name: vagrant_presets_box
       loop: "{{ vagrant_presets_search_boxes_result.files }}"
       loop_control:
-        label: >-
-          {{ file.path | regex_replace(".*(amtega.vagrant_presets.*)", "\1") }}
+        label: "{{ file.path | basename }}"
         loop_var: file
       register: vagrant_presets_load_boxes_result
 
