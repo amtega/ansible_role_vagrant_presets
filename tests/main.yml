@@ -1,6 +1,6 @@
 ---
 
-# Tasks for tesing role
+# Tasks for testing role
 
 - name: test vagrant_presets role
   hosts: localhost
