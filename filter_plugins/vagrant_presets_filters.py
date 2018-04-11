@@ -6,6 +6,24 @@ from ansible.errors import AnsibleFilterError
 from datetime import datetime
 from random import randint, seed
 
+def vagrant_presets_add_attributes(presets, attributes, overwrite=False):
+    """Add attributes to a set of presets.
+
+    Args:
+        presets (list of dicts): presets to add the new attributes.
+        attributes (dict): attributes to add.
+        overwrite (bool): tells if attribute must be overwriten if present
+
+    Returns:
+        list of dicts: presets with attributes added in.
+    """
+    for preset in presets:
+        for attribute in attributes:
+            if attribute not in preset or overwrite:
+                preset[attribute] = attributes[attribute]
+
+    return presets
+
 def vagrant_presets_randomize_names(presets):
     """Randomize the name attribute in a set of presets.
 
@@ -34,6 +52,22 @@ def vagrant_presets_randomize_names(presets):
 
     return presets
 
+def vagrant_presets_remove_attributes(presets, attributes):
+    """Remove attributes from a set of presets.
+
+    Args:
+        presets (list of dicts): presets to remove the attributes.
+        attributes (list): attributes to remove.
+
+    Returns:
+        list of dicts: presets with attributes removed.
+    """
+    for preset in presets:
+        for attribute in attributes:
+            preset.pop(attribute, None)
+
+    return presets
+
 def vagrant_presets_repeat(presets, n):
     """Repeat a preset list.
 
@@ -56,6 +90,9 @@ class FilterModule(object):
 
     def filters(self):
         return {
+            'vagrant_presets_add_attributes': vagrant_presets_add_attributes,
             'vagrant_presets_randomize_names': vagrant_presets_randomize_names,
+            'vagrant_presets_remove_attributes':
+                vagrant_presets_remove_attributes,
             'vagrant_presets_repeat': vagrant_presets_repeat
         }

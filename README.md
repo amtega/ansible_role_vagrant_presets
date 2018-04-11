@@ -22,6 +22,7 @@ From the previous directories the role setups dynamically some variables that co
 
 The role provides these filters to manipulate the provided presets:
 
+- vagrant_presets_add_attributes: adds attributes to a set of presets
 - vagrant_presets_randomize_names: randomize the name attribute in a set of presets
 - vagrant_presets_repeat filter: repeat a preset a number of times
 
