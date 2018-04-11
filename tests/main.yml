@@ -41,6 +41,19 @@
           - vagrant_presets_vms
             | selectattr('name', 'equalto', 'fedora_27') | list | length > 0
 
+    - name: test vagrant_presets_add_attributes filter
+      assert:
+        that:
+          - "vagrant_presets_boxes
+             | vagrant_presets_add_attributes({'new_attribute': 'hello world'})
+             | selectattr('new_attribute', 'equalto', 'hello world')
+             | list | length > 0"
+
+          - "vagrant_presets_vms
+             | vagrant_presets_add_attributes({'new_attribute': 'hello world'})
+             | selectattr('new_attribute', 'equalto', 'hello world')
+             | list | length > 0"
+
     - name: test vagrant_presets_randomize_names filter
       assert:
         that:
@@ -51,6 +64,21 @@
           - vagrant_presets_vms
             | vagrant_presets_randomize_names
             | selectattr('name', 'equalto', 'centos_7') | list | length == 0
+
+    - name: test vagrant_presets_remove_attributes filter
+      assert:
+        that:
+          - "vagrant_presets_boxes
+             | vagrant_presets_add_attributes({'new_attribute': 'hello world'})
+             | vagrant_presets_remove_attributes(['new_attribute'])
+             | selectattr('new_attribute', 'equalto', 'hello world')
+             | list | length == 0"
+
+          - "vagrant_presets_vms
+             | vagrant_presets_add_attributes({'new_attribute': 'hello world'})
+             | vagrant_presets_remove_attributes(['new_attribute'])
+             | selectattr('new_attribute', 'equalto', 'hello world')
+             | list | length == 0"
 
     - name: test vagrant_presets_repeat filter
       assert:

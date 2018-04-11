@@ -1,0 +1,20 @@
+---
+# Role default lower priority variables
+
+# JSON query to filter the presets returned by the role. See json_query in
+# ansible documentation for details
+
+vagrant_presets_boxes_json_query: >-
+  [?starts_with(name, `centos`) || starts_with(name, `fedora`)]
+
+vagrant_presets_vms_json_query: "{{ vagrant_presets_boxes_json_query }}"
+
+# Ansible paths
+
+vagrant_presets_ansible_path: >-
+  {{ (ansible_user_id == "root") | ternary("/opt/vagrant/ansible",
+                                           "~/.vagrant/ansible"
+                                           | expanduser) }}
+
+vagrant_presets_playbooks_path: >-
+  {{ vagrant_presets_ansible_path }}/playbooks
