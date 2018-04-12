@@ -3,6 +3,6 @@
 
 name: fedora_27
 address: fedora/27-cloud-base
-playbook: "{{ vagrant_presets_files }}/bootstrap.yml"
+playbook: bootstrap.yml
 customized_name: fedora_27_preset
 ansible_python_interpreter: /usr/bin/python3

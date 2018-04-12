@@ -28,7 +28,15 @@
              | list
              | to_json
              | from_json
-             | json_query(vagrant_presets_boxes_json_query) }}
+             | json_query(vagrant_presets_boxes_json_query)
+             | to_nice_yaml
+             | regex_replace('playbook: (.*)',
+                             'playbook: "'
+                             + vagrant_presets_playbooks_path
+                             + "/"
+                             + "\1"
+                             + '"')
+             | from_yaml }}
 
     - name: setup directory for playbooks
       file:
@@ -38,8 +46,8 @@
 
     - name: setup playbooks
       copy:
-        src: "files/{{ item.playbook }}"
-        dest: "{{ vagrant_presets_playbooks_path }}/{{ item.playbook }}"
+        src: "files/{{ item.playbook | basename }}"
+        dest: "{{ item.playbook }}"
         mode: 0600
       loop: "{{ vagrant_presets_boxes }}"
       loop_control:

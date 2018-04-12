@@ -3,5 +3,5 @@
 
 name: centos_7
 address: centos/7
-playbook: "{{ vagrant_presets_files }}/bootstrap.yml"
+playbook: bootstrap.yml
 customized_name: centos_7_preset
