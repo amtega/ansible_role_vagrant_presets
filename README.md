@@ -23,7 +23,8 @@ The role provides these filters to manipulate the provided presets:
 
 - vagrant_presets_add_attributes: adds attributes to a set of presets
 - vagrant_presets_randomize_names: randomize the name attribute in a set of presets
-- vagrant_presets_repeat filter: repeat a preset a number of times
+- vagrant_presets_remove_attributes: remove attributes from a set of presets
+- vagrant_presets_repeat: repeat a preset a number of times
 
 ## Dependencies
 
@@ -49,7 +50,9 @@ This is an example playbook:
 
 ## Testing
 
-You can run the tests with the following commands:
+Tests are based on docker containers. You can setup docker engine quickly using the playbook `files/setup.yml` available in the role [amtega.docker_engine](https://galaxy.ansible.com/amtega/docker_engine).
+
+Once you have docker, you can run the tests with the following commands:
 
 ```shell
 $ cd amtega.vagrant_presets/tests
