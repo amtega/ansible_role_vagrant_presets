@@ -3,5 +3,5 @@
 
 name: centos_7
 address: centos/7
-playbook: bootstrap.yml
+playbook: bootstrap_redhat.yml
 customized_name: centos_7_preset

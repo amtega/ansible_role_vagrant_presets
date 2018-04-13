@@ -1,0 +1,7 @@
+---
+# Debian 9 box
+
+name: debian_9
+address: debian/stretch64
+playbook: bootstrap_debian.yml
+customized_name: debian_9_preset

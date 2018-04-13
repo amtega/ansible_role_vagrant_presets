@@ -3,5 +3,5 @@
 
 name: centos_6
 address: centos/6
-playbook: bootstrap.yml
+playbook: bootstrap_redhat.yml
 customized_name: centos_6_preset

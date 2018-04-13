@@ -1,0 +1,11 @@
+---
+# Debian 9 vm
+
+name: debian_9
+hostname: debian-9
+box: debian_9
+ansible_user: root
+ansible_ssh_pass: root
+options:
+  "config.ssh.forward_agent": "true"
+  "config.ssh.forward_x11": "true"
