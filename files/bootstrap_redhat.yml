@@ -50,7 +50,7 @@
       service:
         name: sshd
         state: reloaded
-      when: enable_password_auth_result | changed
+      when: enable_password_auth_result is changed
 
     - name: clean yum cache
       shell: yum clean all
@@ -58,4 +58,4 @@
         warn: false
 
     - name: clear bash history
-      shell: "cat /dev/null > ~/.bash_history && history -c"
+      shell: "cat /dev/null > ~/.bash_history"

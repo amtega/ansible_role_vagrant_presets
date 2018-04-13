@@ -39,7 +39,7 @@
       service:
         name: ssh
         state: reloaded
-      when: enable_password_auth_result | changed
+      when: enable_password_auth_result is changed
 
     - name: clean apt cache
       shell: apt-get clean
@@ -47,4 +47,4 @@
         warn: false
 
     - name: clear bash history
-      shell: "cat /dev/null > ~/.bash_history && history -c"
+      shell: "cat /dev/null > ~/.bash_history"
