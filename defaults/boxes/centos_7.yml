@@ -1,7 +1,7 @@
 ---
 # CentOS 7 box
 
-name: centos_7
+name: centos-7
 address: centos/7
 playbook: bootstrap_redhat.yml
-customized_name: centos_7_preset
+customized_name: centos-7-preset

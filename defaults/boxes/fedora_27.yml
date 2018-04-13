@@ -1,8 +1,8 @@
 ---
 # Fedora 27 box
 
-name: fedora_27
+name: fedora-27
 address: fedora/27-cloud-base
 playbook: bootstrap_redhat.yml
-customized_name: fedora_27_preset
+customized_name: fedora-27-preset
 ansible_python_interpreter: /usr/bin/python3

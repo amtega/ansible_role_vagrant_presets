@@ -7,10 +7,10 @@
   roles:
     - role: amtega.docker_presets
       docker_presets_images_json_query: >-
-        [? (starts_with(name, `centos_7`))
-           || starts_with(name, `debian_9`)
-           || starts_with(name, `fedora_26`)
-           || starts_with(name, `fedora_27`) ]
+        [? (starts_with(name, `centos-7`))
+           || starts_with(name, `debian-9`)
+           || starts_with(name, `fedora-26`)
+           || starts_with(name, `fedora-27`) ]
   tags:
     - sandbox
 
@@ -33,16 +33,16 @@
           - vagrant_presets_boxes | length > 0
 
           - vagrant_presets_boxes
-            | selectattr('name', 'equalto', 'centos_6') | list | length > 0
+            | selectattr('name', 'equalto', 'centos-6') | list | length > 0
 
           - vagrant_presets_boxes
-            | selectattr('name', 'equalto', 'centos_7') | list | length > 0
+            | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
           - vagrant_presets_boxes
-            | selectattr('name', 'equalto', 'fedora_26') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
 
           - vagrant_presets_boxes
-            | selectattr('name', 'equalto', 'fedora_27') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
 
     - name: test dynamic load of vms presets
       assert:
@@ -50,16 +50,16 @@
           - vagrant_presets_vms | length > 0
 
           - vagrant_presets_vms
-            | selectattr('name', 'equalto', 'centos_6') | list | length > 0
+            | selectattr('name', 'equalto', 'centos-6') | list | length > 0
 
           - vagrant_presets_vms
-            | selectattr('name', 'equalto', 'centos_7') | list | length > 0
+            | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
           - vagrant_presets_vms
-            | selectattr('name', 'equalto', 'fedora_26') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
 
           - vagrant_presets_vms
-            | selectattr('name', 'equalto', 'fedora_27') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
 
     - name: test vagrant_presets_add_attributes filter
       assert:
@@ -79,11 +79,11 @@
         that:
           - vagrant_presets_boxes
             | vagrant_presets_randomize_names
-            | selectattr('name', 'equalto', 'centos_7') | list | length == 0
+            | selectattr('name', 'equalto', 'centos-7') | list | length == 0
 
           - vagrant_presets_vms
             | vagrant_presets_randomize_names
-            | selectattr('name', 'equalto', 'centos_7') | list | length == 0
+            | selectattr('name', 'equalto', 'centos-7') | list | length == 0
 
     - name: test vagrant_presets_remove_attributes filter
       assert:

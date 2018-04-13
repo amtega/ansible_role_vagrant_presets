@@ -1,7 +1,7 @@
 ---
 # CentOS 6 box
 
-name: centos_6
+name: centos-6
 address: centos/6
 playbook: bootstrap_redhat.yml
-customized_name: centos_6_preset
+customized_name: centos-6-preset
