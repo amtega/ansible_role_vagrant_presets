@@ -1,9 +1,9 @@
 ---
 # Centos 7 vm
 
-name: centos_7
+name: centos-7
 hostname: centos-7
-box: centos_7
+box: centos-7
 ansible_user: root
 ansible_ssh_pass: root
 options:

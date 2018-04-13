@@ -25,7 +25,33 @@
         vagrant_presets_boxes: >-
           {{ vagrant_presets_load_boxes_result.results
              | map(attribute="ansible_facts.vagrant_presets_box")
-             | list }}
+             | list
+             | to_json
+             | from_json
+             | json_query(vagrant_presets_boxes_json_query)
+             | to_nice_yaml
+             | regex_replace('playbook: (.*)',
+                             'playbook: "'
+                             + vagrant_presets_playbooks_path
+                             + "/"
+                             + "\1"
+                             + '"')
+             | from_yaml }}
+
+    - name: setup directory for playbooks
+      file:
+        path: "{{ vagrant_presets_playbooks_path }}"
+        state: directory
+        mode: 0700
+
+    - name: setup playbooks
+      copy:
+        src: "files/{{ item.playbook | basename }}"
+        dest: "{{ item.playbook }}"
+        mode: 0600
+      loop: "{{ vagrant_presets_boxes }}"
+      loop_control:
+        label: "{{ vagrant_presets_playbooks_path }}/{{ item.playbook }}"
   tags:
     - role::vagrant_presets
     - role::vagrant_presets::boxes

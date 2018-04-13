@@ -1,9 +1,9 @@
 ---
 # Centos 6 vm
 
-name: centos_6
+name: centos-6
 hostname: centos-6
-box: centos_6
+box: centos-6
 ansible_user: root
 ansible_ssh_pass: root
 options:

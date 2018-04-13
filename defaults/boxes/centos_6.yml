@@ -1,7 +1,9 @@
 ---
 # CentOS 6 box
 
-name: centos_6
+name: centos-6
 address: centos/6
-playbook: "{{ vagrant_presets_files }}/bootstrap.yml"
-customized_name: centos_6_preset
+distribution: CentOS
+distribution_version: 6
+playbook: bootstrap_redhat.yml
+customized_name: centos-6-preset

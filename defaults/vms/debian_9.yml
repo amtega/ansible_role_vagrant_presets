@@ -1,0 +1,14 @@
+---
+# Debian 9 vm
+
+name: debian-9
+hostname: debian-9
+box: debian-9
+ansible_user: vagrant
+ansible_ssh_pass: vagrant
+ansible_become: true
+ansible_become_user: root
+ansible_become_method: sudo
+options:
+  "config.ssh.forward_agent": "true"
+  "config.ssh.forward_x11": "true"

@@ -25,7 +25,10 @@
         vagrant_presets_vms: >-
           {{ vagrant_presets_load_vms_result.results
              | map(attribute="ansible_facts.vagrant_presets_vm")
-             | list }}
+             | list
+             | to_json
+             | from_json
+             | json_query(vagrant_presets_vms_json_query) }}
   tags:
     - role::vagrant_presets
     - role::vagrant_presets::vms

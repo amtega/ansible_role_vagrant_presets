@@ -1,9 +1,9 @@
 ---
 # Fedora 27 vm
 
-name: fedora_27
+name: fedora-27
 hostname: fedora-27
-box: fedora_27
+box: fedora-27
 ansible_user: root
 ansible_ssh_pass: root
 options:
