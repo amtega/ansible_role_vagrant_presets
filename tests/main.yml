@@ -88,17 +88,17 @@
     - name: test vagrant_presets_remove_attributes filter
       assert:
         that:
-          - "vagrant_presets_boxes
-             | vagrant_presets_add_attributes({'new_attribute': 'hello world'})
-             | vagrant_presets_remove_attributes(['new_attribute'])
-             | selectattr('new_attribute', 'equalto', 'hello world')
-             | list | length == 0"
+          - "'new_attribute'
+             not in vagrant_presets_boxes
+                    | vagrant_presets_add_attributes(
+                        {'new_attribute': 'hello world'})
+                    | vagrant_presets_remove_attributes(['new_attribute'])"
 
-          - "vagrant_presets_vms
-             | vagrant_presets_add_attributes({'new_attribute': 'hello world'})
-             | vagrant_presets_remove_attributes(['new_attribute'])
-             | selectattr('new_attribute', 'equalto', 'hello world')
-             | list | length == 0"
+          - "'new_attribute'
+             not in vagrant_presets_vms
+                    | vagrant_presets_add_attributes(
+                        {'new_attribute': 'hello world'})
+                    | vagrant_presets_remove_attributes(['new_attribute'])"
 
     - name: test vagrant_presets_repeat filter
       assert:
