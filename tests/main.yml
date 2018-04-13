@@ -6,7 +6,7 @@
   hosts: localhost
   roles:
     - role: amtega.docker_presets
-      docker_presets_images_json_query: >-
+      vagrant_presets_boxes_json_query: >-
         [? (starts_with(name, `centos-7`))
            || starts_with(name, `debian-9`)
            || starts_with(name, `fedora-26`)
@@ -27,7 +27,7 @@
   roles:
     - amtega.vagrant_presets
   tasks:
-    - name: test dynamic load of boxes presets
+    - name: test dynamic load of boxes presets with default json query filters
       assert:
         that:
           - vagrant_presets_boxes | length > 0
@@ -37,9 +37,6 @@
 
           - vagrant_presets_boxes
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
-
-          - vagrant_presets_boxes
-            | selectattr('name', 'equalto', 'debian-9') | list | length > 0
 
           - vagrant_presets_boxes
             | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
@@ -57,9 +54,6 @@
 
           - vagrant_presets_vms
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
-
-          - vagrant_presets_vms
-            | selectattr('name', 'equalto', 'debian-9') | list | length > 0
 
           - vagrant_presets_vms
             | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
@@ -116,6 +110,36 @@
           - vagrant_presets_vms
             | vagrant_presets_repeat(3)
             | length == vagrant_presets_vms | length * 3
+  tags:
+    - idempotence
+
+- name: test vagrant_presets role with customized json query filters
+  hosts: docker_sandbox_containers
+  roles:
+    - role: amtega.vagrant_presets
+      vagrant_presets_boxes_json_query: >-
+        [?distribution == `CentOS` && distribution_version > `6`]
+      vagrant_presets_vms_json_query: >-
+        [?starts_with(name, `centos`)]
+  tasks:
+    - name: test dynamic load of images presets
+      assert:
+        that:
+          - vagrant_presets_boxes | length > 0
+
+          - vagrant_presets_boxes
+            | selectattr('name', 'equalto', 'centos-7') | list | length > 0
+
+    - name: test dynamic load of containers presets
+      assert:
+        that:
+          - vagrant_presets_vms | length > 0
+
+          - vagrant_presets_vms
+            | selectattr('name', 'equalto', 'centos-6') | list | length > 0
+
+          - vagrant_presets_vms
+            | selectattr('name', 'equalto', 'centos-7') | list | length > 0
   tags:
     - idempotence
 

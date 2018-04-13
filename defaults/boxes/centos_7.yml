@@ -3,5 +3,7 @@
 
 name: centos-7
 address: centos/7
+distribution: CentOS
+distribution_version: 7
 playbook: bootstrap_redhat.yml
 customized_name: centos-7-preset
