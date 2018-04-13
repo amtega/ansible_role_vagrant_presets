@@ -39,6 +39,9 @@
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
           - vagrant_presets_boxes
+            | selectattr('name', 'equalto', 'debian-9') | list | length > 0
+
+          - vagrant_presets_boxes
             | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
 
           - vagrant_presets_boxes
@@ -54,6 +57,9 @@
 
           - vagrant_presets_vms
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
+
+          - vagrant_presets_vms
+            | selectattr('name', 'equalto', 'debian-9') | list | length > 0
 
           - vagrant_presets_vms
             | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
