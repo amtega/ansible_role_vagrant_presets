@@ -12,7 +12,7 @@ vagrant_presets_vms_json_query: "{{ vagrant_presets_boxes_json_query }}"
 # Ansible paths
 
 vagrant_presets_ansible_path: >-
-  {{ (ansible_user_id == "root") | ternary("/opt/vagrant/ansible",
+  {{ (ansible_facts.user_id == "root") | ternary("/opt/vagrant/ansible",
                                            "~/.vagrant/ansible"
                                            | expanduser) }}
 

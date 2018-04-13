@@ -14,9 +14,9 @@
               - python-selinux
               - xauth
       environment:
-        http_proxy: "{{ ansible_env.http_proxy | default('') }}"
-        https_proxy: "{{ ansible_env.https_proxy | default('') }}"
-        no_proxy: "{{ ansible_env.no_proxy | default('') }}"
+        http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
+        https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
+        no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
 
     - name: setup root user
       user:
