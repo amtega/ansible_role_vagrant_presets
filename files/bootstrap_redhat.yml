@@ -4,6 +4,11 @@
     ansible_become_method: sudo
   tasks:
     - block:
+        - name: upgrade all packages
+          package:
+            name: "*"
+            state: latest
+
         # Recreate structure of /usr/share/locale. Given that ansible package
         # modules does not support reinstall mode, the workaround here is to
         # call yum directly
