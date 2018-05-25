@@ -6,4 +6,3 @@ address: debian/stretch64
 distribution: debian
 distribution_version: 9
 playbook: bootstrap_debian.yml
-customized_name: debian-9-preset

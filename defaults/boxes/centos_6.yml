@@ -6,4 +6,3 @@ address: centos/6
 distribution: CentOS
 distribution_version: 6
 playbook: bootstrap_redhat.yml
-customized_name: centos-6-preset

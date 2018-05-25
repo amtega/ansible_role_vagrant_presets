@@ -6,5 +6,4 @@ address: fedora/26-cloud-base
 distribution: Fedora
 distribution_version: 26
 playbook: bootstrap_redhat.yml
-customized_name: fedora-26-preset
 ansible_python_interpreter: /usr/bin/python3
