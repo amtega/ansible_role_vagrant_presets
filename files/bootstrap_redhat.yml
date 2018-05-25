@@ -4,6 +4,16 @@
     ansible_become_method: sudo
   tasks:
     - block:
+        - name: install required packages
+          package:
+            name: "{{ packages }}"
+            state: present
+          vars:
+            packages:
+              - python2
+              - libselinux-python
+              - xauth
+
         - name: setup root user
           user:
             name: root
@@ -37,16 +47,6 @@
             warn: false
           register: reinstall_filesystem_result
           failed_when: not reinstall_filesystem_result.rc == 0
-
-        - name: install required packages
-          package:
-            name: "{{ packages }}"
-            state: present
-          vars:
-            packages:
-              - python2
-              - libselinux-python
-              - xauth
 
         - name: upgrade all packages
           package:

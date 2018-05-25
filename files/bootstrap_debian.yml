@@ -19,11 +19,6 @@
         https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
         no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
 
-    - name: upgrade all packages
-      package:
-        name: "*"
-        state: latest
-
     - name: setup root user
       user:
         name: root
@@ -46,6 +41,11 @@
         name: ssh
         state: reloaded
       when: enable_password_auth_result is changed
+
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest
 
     - name: clean apt cache
       shell: apt-get clean
