@@ -12,6 +12,7 @@
           - python2
           - libselinux-python
           - xauth
+          - yum
 
     - name: setup root user
       user:
@@ -48,9 +49,9 @@
       failed_when: not reinstall_filesystem_result.rc == 0
 
     - name: upgrade all packages
-      package:
-        name: "*"
-        state: latest
+      shell: "yum update -y"
+      args:
+        warn: false
 
     - name: clean yum cache
       shell: yum clean all
