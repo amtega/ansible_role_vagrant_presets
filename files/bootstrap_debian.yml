@@ -3,20 +3,16 @@
     ansible_become: true
     ansible_become_method: sudo
   tasks:
-    - block:
-        - name: install required packages
-          package:
-            name: "{{ packages }}"
-            state: present
-          vars:
-            packages:
-              - python
-              - python-selinux
-              - xauth
-      environment:
-        http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
-        https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
-        no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
+    - name: install required packages
+      package:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - aptitude
+          - python
+          - python-selinux
+          - xauth
 
     - name: setup root user
       user:
@@ -41,6 +37,9 @@
         state: reloaded
       when: enable_password_auth_result is changed
 
+    - name: upgrade all packages
+      shell: "apt-get update ; apt-get upgrade -y"
+
     - name: clean apt cache
       shell: apt-get clean
       args:
@@ -48,3 +47,8 @@
 
     - name: clear bash history
       shell: "cat /dev/null > ~/.bash_history"
+
+  environment:
+    http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
+    https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
+    no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"

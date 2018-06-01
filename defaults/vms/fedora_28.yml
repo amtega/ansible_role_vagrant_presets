@@ -1,9 +1,9 @@
 ---
-# Centos 6 vm
+# Fedora 26 vm
 
-name: centos-6
-hostname: centos-6
-box: centos-6
+name: fedora-28
+hostname: fedora-28
+box: fedora-28
 ansible_user: root
 ansible_ssh_pass: root
 options:

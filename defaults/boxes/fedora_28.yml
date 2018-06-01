@@ -1,10 +1,9 @@
 ---
 # Fedora 26 box
 
-name: fedora-26
+name: fedora-28
 address: fedora/26-cloud-base
 distribution: Fedora
-distribution_version: 26
+distribution_version: 28
 playbook: bootstrap_redhat.yml
-customized_name: fedora-26-preset
 ansible_python_interpreter: /usr/bin/python3

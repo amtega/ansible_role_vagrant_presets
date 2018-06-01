@@ -3,31 +3,16 @@
     ansible_become: true
     ansible_become_method: sudo
   tasks:
-    - block:
-        # Recreate structure of /usr/share/locale. Given that ansible package
-        # modules does not support reinstall mode, the workaround here is to
-        # call yum directly
-
-        - name: reinstall filesystem package
-          shell: "yum reinstall filesystem -y"
-          args:
-            warn: false
-          register: reinstall_filesystem_result
-          failed_when: not reinstall_filesystem_result.rc == 0
-
-        - name: install required packages
-          package:
-            name: "{{ packages }}"
-            state: present
-          vars:
-            packages:
-              - python2
-              - libselinux-python
-              - xauth
-      environment:
-        http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
-        https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
-        no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
+    - name: install required packages
+      package:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - python2
+          - libselinux-python
+          - xauth
+          - yum
 
     - name: setup root user
       user:
@@ -52,6 +37,22 @@
         state: reloaded
       when: enable_password_auth_result is changed
 
+    # Recreate structure of /usr/share/locale. Given that ansible package
+    # modules does not support reinstall mode, the workaround here is to
+    # call yum directly
+
+    - name: reinstall filesystem package
+      shell: "yum reinstall filesystem -y"
+      args:
+        warn: false
+      register: reinstall_filesystem_result
+      failed_when: not reinstall_filesystem_result.rc == 0
+
+    - name: upgrade all packages
+      shell: "yum update -y"
+      args:
+        warn: false
+
     - name: clean yum cache
       shell: yum clean all
       args:
@@ -59,3 +60,8 @@
 
     - name: clear bash history
       shell: "cat /dev/null > ~/.bash_history"
+
+  environment:
+    http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
+    https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
+    no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
