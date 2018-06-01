@@ -49,9 +49,9 @@
       failed_when: not reinstall_filesystem_result.rc == 0
 
     - name: upgrade all packages
-      shell: "yum update -y"
-      args:
-        warn: false
+      package:
+        name: "*"
+        state: latest
 
     - name: clean yum cache
       shell: yum clean all

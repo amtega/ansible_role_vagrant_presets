@@ -38,7 +38,9 @@
       when: enable_password_auth_result is changed
 
     - name: upgrade all packages
-      shell: "apt-get update ; apt-get upgrade -y"
+      package:
+        name: "*"
+        state: latest
 
     - name: clean apt cache
       shell: apt-get clean
