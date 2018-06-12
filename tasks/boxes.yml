@@ -51,7 +51,7 @@
         mode: 0600
       loop: "{{ vagrant_presets_boxes }}"
       loop_control:
-        label: "{{ vagrant_presets_playbooks_path }}/{{ item.playbook }}"
+        label: "{{ item.playbook }}"
   tags:
     - role::vagrant_presets
     - role::vagrant_presets::boxes
