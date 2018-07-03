@@ -2,9 +2,9 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
-from ansible.errors import AnsibleFilterError
 from datetime import datetime
 from random import randint, seed
+
 
 def vagrant_presets_add_attributes(presets, attributes, overwrite=False):
     """Add attributes to a set of presets.
@@ -23,6 +23,7 @@ def vagrant_presets_add_attributes(presets, attributes, overwrite=False):
                 preset[attribute] = attributes[attribute]
 
     return presets
+
 
 def vagrant_presets_randomize_names(presets):
     """Randomize the name attribute in a set of presets.
@@ -52,6 +53,7 @@ def vagrant_presets_randomize_names(presets):
 
     return presets
 
+
 def vagrant_presets_remove_attributes(presets, attributes):
     """Remove attributes from a set of presets.
 
@@ -67,6 +69,7 @@ def vagrant_presets_remove_attributes(presets, attributes):
             preset.pop(attribute, None)
 
     return presets
+
 
 def vagrant_presets_repeat(presets, n):
     """Repeat a preset list.
@@ -84,6 +87,7 @@ def vagrant_presets_repeat(presets, n):
             result = result + [preset.copy()]
 
     return result
+
 
 class FilterModule(object):
     """Ansible vagrant_presets filters."""
