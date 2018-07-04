@@ -4,6 +4,6 @@
 name: fedora-27
 address: fedora/27-cloud-base
 distribution: Fedora
-distribution_version: 26
+distribution_version: 27
 playbook: bootstrap_redhat.yml
 ansible_python_interpreter: /usr/bin/python3

@@ -2,7 +2,7 @@
 # Fedora 26 box
 
 name: fedora-28
-address: fedora/26-cloud-base
+address: fedora/28-cloud-base
 distribution: Fedora
 distribution_version: 28
 playbook: bootstrap_redhat.yml
