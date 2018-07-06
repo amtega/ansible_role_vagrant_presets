@@ -1,0 +1,17 @@
+---
+# Role check tasks
+
+- block:
+    - name: assert platform is supported
+      assert:
+        that:
+          - distribution in vagrant_presets_supported_distributions
+          - >-
+            ansible_facts.distribution_version
+            is version(
+              vagrant_presets_supported_versions[distribution], ">=")
+      vars:
+        distribution: "{{ ansible_facts.distribution | lower }}"
+  tags:
+    - role::vagrant_presets
+    - role::vagrant_presets::check
