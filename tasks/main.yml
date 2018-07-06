@@ -1,6 +1,12 @@
 ---
 # Role tasks
 
+- name: sanity checks
+  import_tasks: check.yml
+  tags:
+    - role::vagrant_presets
+    - role::vagrant_presets::check
+
 - name: configure boxes presets
   include_tasks: boxes.yml
   tags:
