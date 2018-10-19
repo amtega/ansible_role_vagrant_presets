@@ -2,6 +2,7 @@
 # Role dependencies
 
 galaxy_info:
+  role_name: vagrant_presets
   author: Juan Antonio Valiño García
   description: Setup a set of facts with vagrant boxes and virtual machines
   company: AMTEGA - Xunta de Galicia
