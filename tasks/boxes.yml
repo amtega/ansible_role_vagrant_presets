@@ -2,16 +2,15 @@
 # Load boxes presets
 
 - block:
-    - name: search box presets
-      local_action:
-        module: find
+    - name: Search box presets
+      find:
         paths: "{{ role_path }}/defaults/boxes"
         patterns: "*.yml"
       register: vagrant_presets_search_boxes_result
+      delegate_to: localhost
 
-    - name: load box presets
-      local_action:
-        module: include_vars
+    - name: Load box presets
+      include_vars:
         file: "{{ file.path }}"
         name: vagrant_presets_box
       loop: "{{ vagrant_presets_search_boxes_result.files }}"
@@ -19,8 +18,9 @@
         label: "{{ file.path | basename }}"
         loop_var: file
       register: vagrant_presets_load_boxes_result
+      delegate_to: localhost
 
-    - name: setup fact with boxes presets
+    - name: Setup fact with boxes presets
       set_fact:
         vagrant_presets_boxes: >-
           {{ vagrant_presets_load_boxes_result.results
@@ -38,13 +38,13 @@
                              + '"')
              | from_yaml }}
 
-    - name: setup directory for playbooks
+    - name: Setup directory for playbooks
       file:
         path: "{{ vagrant_presets_playbooks_path }}"
         state: directory
         mode: 0700
 
-    - name: setup playbooks
+    - name: Setup playbooks
       copy:
         src: "files/{{ item.playbook | basename }}"
         dest: "{{ item.playbook }}"

@@ -2,7 +2,7 @@
 
 # Tasks for testing role
 
-- name: configure docker sandbox environment
+- name: Configure docker sandbox environment
   hosts: localhost
   roles:
     - role: amtega.docker_presets
@@ -14,7 +14,7 @@
   tags:
     - sandbox
 
-- name: run idempotence test
+- name: Run idempotence test
   hosts: localhost
   roles:
     - role: amtega.docker_sandbox
@@ -22,12 +22,12 @@
   tags:
     - sandbox
 
-- name: test vagrant_presets role
+- name: Test vagrant_presets role
   hosts: docker_sandbox_containers
   roles:
     - amtega.vagrant_presets
   tasks:
-    - name: test dynamic load of boxes presets with default json query filters
+    - name: Test dynamic load of boxes presets with default json query filters
       assert:
         that:
           - vagrant_presets_boxes | length > 0
@@ -44,7 +44,7 @@
           - vagrant_presets_boxes
             | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
 
-    - name: test dynamic load of vms presets
+    - name: Test dynamic load of vms presets
       assert:
         that:
           - vagrant_presets_vms | length > 0
@@ -61,7 +61,7 @@
           - vagrant_presets_vms
             | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
 
-    - name: test vagrant_presets_add_attributes filter
+    - name: Test vagrant_presets_add_attributes filter
       assert:
         that:
           - "vagrant_presets_boxes
@@ -74,7 +74,7 @@
              | selectattr('new_attribute', 'equalto', 'hello world')
              | list | length > 0"
 
-    - name: test vagrant_presets_randomize_names filter
+    - name: Test vagrant_presets_randomize_names filter
       assert:
         that:
           - vagrant_presets_boxes
@@ -85,7 +85,7 @@
             | vagrant_presets_randomize_names
             | selectattr('name', 'equalto', 'centos-7') | list | length == 0
 
-    - name: test vagrant_presets_remove_attributes filter
+    - name: Test vagrant_presets_remove_attributes filter
       assert:
         that:
           - "'new_attribute'
@@ -100,7 +100,7 @@
                         {'new_attribute': 'hello world'})
                     | vagrant_presets_remove_attributes(['new_attribute'])"
 
-    - name: test vagrant_presets_repeat filter
+    - name: Test vagrant_presets_repeat filter
       assert:
         that:
           - vagrant_presets_boxes
@@ -113,7 +113,7 @@
   tags:
     - idempotence
 
-- name: test vagrant_presets role with customized json query filters
+- name: Test vagrant_presets role with customized json query filters
   hosts: docker_sandbox_containers
   roles:
     - role: amtega.vagrant_presets
@@ -122,7 +122,7 @@
       vagrant_presets_vms_json_query: >-
         [?starts_with(name, `centos`)]
   tasks:
-    - name: test dynamic load of images presets
+    - name: Test dynamic load of images presets
       assert:
         that:
           - vagrant_presets_boxes | length > 0
@@ -130,7 +130,7 @@
           - vagrant_presets_boxes
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
-    - name: test dynamic load of containers presets
+    - name: Test dynamic load of containers presets
       assert:
         that:
           - vagrant_presets_vms | length > 0
@@ -143,7 +143,7 @@
   tags:
     - idempotence
 
-- name: cleanup docker sandbox
+- name: Cleanup docker sandbox
   hosts: localhost
   roles:
     - role: amtega.docker_sandbox
