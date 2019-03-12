@@ -3,7 +3,7 @@
     ansible_become: true
     ansible_become_method: sudo
   tasks:
-    - name: install required packages
+    - name: Install required packages
       package:
         name: "{{ packages }}"
         state: present
@@ -14,7 +14,7 @@
           - python-selinux
           - xauth
 
-    - name: setup root user
+    - name: Setup root user
       user:
         name: root
         shell: /bin/bash
@@ -23,7 +23,7 @@
           {{ "root"
              | password_hash('sha512', 100000000000 | random | string) }}
 
-    - name: enable sshd password authentication
+    - name: Enable sshd password authentication
       lineinfile:
         path: /etc/ssh/sshd_config
         regexp: "^PasswordAuthentication no"
@@ -31,23 +31,23 @@
         state: present
       register: enable_password_auth_result
 
-    - name: reload sshd
+    - name: Reload sshd
       service:
         name: ssh
         state: reloaded
       when: enable_password_auth_result is changed
 
-    - name: upgrade all packages
+    - name: Upgrade all packages
       package:
         name: "*"
         state: latest
 
-    - name: clean apt cache
+    - name: Clean apt cache
       shell: apt-get clean
       args:
         warn: false
 
-    - name: clear bash history
+    - name: Clear bash history
       shell: "cat /dev/null > ~/.bash_history"
 
   environment:

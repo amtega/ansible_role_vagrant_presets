@@ -1,19 +1,19 @@
 ---
 # Role tasks
 
-- name: sanity checks
+- name: Sanity checks
   import_tasks: check.yml
   tags:
     - role::vagrant_presets
     - role::vagrant_presets::check
 
-- name: configure boxes presets
+- name: Configure boxes presets
   include_tasks: boxes.yml
   tags:
     - role::vagrant_presets
     - role::vagrant_presets::boxes
 
-- name: configure vms presets
+- name: Configure vms presets
   include_tasks: vms.yml
   tags:
     - role::vagrant_presets

@@ -2,7 +2,7 @@
 # Role check tasks
 
 - block:
-    - name: assert platform is supported
+    - name: Assert platform is supported
       assert:
         that:
           - distribution in vagrant_presets_supported_distributions

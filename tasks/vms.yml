@@ -2,16 +2,15 @@
 # Load vms presets
 
 - block:
-    - name: search vm presets
-      local_action:
-        module: find
+    - name: Search vm presets
+      find:
         paths: "{{ role_path }}/defaults/vms"
         patterns: "*.yml"
       register: vagrant_presets_search_vms_result
+      delegate_to: localhost
 
-    - name: load vm presets
-      local_action:
-        module: include_vars
+    - name: Load vm presets
+      include_vars:
         file: "{{ file.path }}"
         name: vagrant_presets_vm
       loop: "{{ vagrant_presets_search_vms_result.files }}"
@@ -19,8 +18,9 @@
         label: "{{ file.path | basename }}"
         loop_var: file
       register: vagrant_presets_load_vms_result
+      delegate_to: localhost
 
-    - name: setup fact with vms presets
+    - name: Setup fact with vms presets
       set_fact:
         vagrant_presets_vms: >-
           {{ vagrant_presets_load_vms_result.results

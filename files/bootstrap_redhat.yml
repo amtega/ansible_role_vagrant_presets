@@ -3,7 +3,7 @@
     ansible_become: true
     ansible_become_method: sudo
   tasks:
-    - name: install required packages
+    - name: Install required packages
       package:
         name: "{{ packages }}"
         state: present
@@ -14,7 +14,7 @@
           - xauth
           - yum
 
-    - name: setup root user
+    - name: Setup root user
       user:
         name: root
         shell: /bin/bash
@@ -23,7 +23,7 @@
           {{ "root"
              | password_hash('sha512', 100000000000 | random | string) }}
 
-    - name: enable sshd password authentication
+    - name: Enable sshd password authentication
       lineinfile:
         path: /etc/ssh/sshd_config
         regexp: "^PasswordAuthentication no"
@@ -31,7 +31,7 @@
         state: present
       register: enable_password_auth_result
 
-    - name: reload sshd
+    - name: Reload sshd
       service:
         name: sshd
         state: reloaded
@@ -41,24 +41,24 @@
     # modules does not support reinstall mode, the workaround here is to
     # call yum directly
 
-    - name: reinstall filesystem package
+    - name: Reinstall filesystem package
       shell: "yum reinstall filesystem -y"
       args:
         warn: false
       register: reinstall_filesystem_result
       failed_when: not reinstall_filesystem_result.rc == 0
 
-    - name: upgrade all packages
+    - name: Upgrade all packages
       package:
         name: "*"
         state: latest
 
-    - name: clean yum cache
+    - name: Clean yum cache
       shell: yum clean all
       args:
         warn: false
 
-    - name: clear bash history
+    - name: Clear bash history
       shell: "cat /dev/null > ~/.bash_history"
 
   environment:
