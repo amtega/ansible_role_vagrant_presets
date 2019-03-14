@@ -3,54 +3,55 @@
     ansible_become: true
     ansible_become_method: sudo
   tasks:
-    - name: Install required packages
-      package:
-        name: "{{ packages }}"
-        state: present
-      vars:
-        packages:
-          - aptitude
-          - python
-          - python-selinux
-          - xauth
+    - block:
+        - name: Install required packages
+          package:
+            name: "{{ packages }}"
+            state: present
+          vars:
+            packages:
+              - aptitude
+              - python
+              - python-selinux
+              - xauth
 
-    - name: Setup root user
-      user:
-        name: root
-        shell: /bin/bash
-        group: root
-        password: >-
-          {{ "root"
-             | password_hash('sha512', 100000000000 | random | string) }}
+        - name: Setup root user
+          user:
+            name: root
+            shell: /bin/bash
+            group: root
+            password: >-
+              {{ "root"
+                 | password_hash('sha512', 100000000000 | random | string) }}
 
-    - name: Enable sshd password authentication
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: "^PasswordAuthentication no"
-        line: "PasswordAuthentication yes"
-        state: present
-      register: enable_password_auth_result
+        - name: Enable sshd password authentication
+          lineinfile:
+            path: /etc/ssh/sshd_config
+            regexp: "^PasswordAuthentication no"
+            line: "PasswordAuthentication yes"
+            state: present
+          register: enable_password_auth_result
 
-    - name: Reload sshd
-      service:
-        name: ssh
-        state: reloaded
-      when: enable_password_auth_result is changed
+        - name: Reload sshd
+          service:
+            name: ssh
+            state: reloaded
+          when: enable_password_auth_result is changed
 
-    - name: Upgrade all packages
-      package:
-        name: "*"
-        state: latest
+        - name: Upgrade all packages
+          package:
+            name: "*"
+            state: latest
 
-    - name: Clean apt cache
-      shell: apt-get clean
-      args:
-        warn: false
+        - name: Clean apt cache
+          shell: apt-get clean
+          args:
+            warn: false
 
-    - name: Clear bash history
-      shell: "cat /dev/null > ~/.bash_history"
+        - name: Clear bash history
+          shell: "cat /dev/null > ~/.bash_history"
 
-  environment:
-    http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
-    https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
-    no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
+      environment:
+        http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
+        https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
+        no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
