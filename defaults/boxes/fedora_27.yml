@@ -2,7 +2,7 @@
 # Fedora 27 box
 
 name: fedora-27
-address: fedora/27-cloud-base
+address: generic/fedora27
 distribution: Fedora
 distribution_version: 27
 playbook: bootstrap_redhat.yml
