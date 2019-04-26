@@ -1,5 +1,5 @@
 ---
-# Fedora 26 box
+# Fedora 28 box
 
 name: fedora-28
 address: fedora/28-cloud-base
