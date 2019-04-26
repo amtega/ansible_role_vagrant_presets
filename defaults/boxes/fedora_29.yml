@@ -1,7 +1,7 @@
 ---
-# Fedora 28 box
+# Fedora 29 box
 
-name: fedora-28
+name: fedora-29
 address: fedora/28-cloud-base
 distribution: Fedora
 distribution_version: 28
