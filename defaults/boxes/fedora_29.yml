@@ -1,0 +1,9 @@
+---
+# Fedora 29 box
+
+name: fedora-29
+address: fedora/28-cloud-base
+distribution: Fedora
+distribution_version: 28
+playbook: bootstrap_redhat.yml
+ansible_python_interpreter: /usr/bin/python3
