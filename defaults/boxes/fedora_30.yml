@@ -1,0 +1,9 @@
+---
+# Fedora 30 box
+
+name: fedora-30
+address: fedora/30-cloud-base
+distribution: Fedora
+distribution_version: 30
+playbook: bootstrap_redhat.yml
+ansible_python_interpreter: /usr/bin/python3

@@ -1,0 +1,11 @@
+---
+# Fedora 29 vm
+
+name: fedora-30
+hostname: fedora-30
+box: fedora-30
+ansible_user: root
+ansible_ssh_pass: root
+options:
+  - "config.ssh.forward_agent = true"
+  - "config.ssh.forward_x11 = true"
