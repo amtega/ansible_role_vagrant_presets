@@ -17,8 +17,8 @@ galaxy_info:
         - 7
     - name: Fedora
       versions:
-        - 27
-        - 28
+        - 29
+        - 30
   galaxy_tags:
     - vagrant
     - system
@@ -30,7 +30,7 @@ dependencies:
       check_platform_distributions:
         centos: 7
         debian: 9
-        fedora: 27
+        fedora: 29
         rhel: 7
     tags:
       - role::vagrant_presets
