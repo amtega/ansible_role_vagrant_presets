@@ -8,6 +8,10 @@
           package:
             name: "{{ packages }}"
             state: present
+          register: packages_install_result
+          until: packages_install_result is succeeded
+          retries: 5
+          delay: 3
           vars:
             packages:
               - python2

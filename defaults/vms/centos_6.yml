@@ -6,6 +6,7 @@ hostname: centos-6
 box: centos-6
 ansible_user: root
 ansible_ssh_pass: root
+ansible_python_interpreter: /usr/bin/python
 options:
   - "config.ssh.forward_agent = true"
   - "config.ssh.forward_x11 = true"
