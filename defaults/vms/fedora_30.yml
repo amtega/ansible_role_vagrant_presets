@@ -6,6 +6,7 @@ hostname: fedora-30
 box: fedora-30
 ansible_user: root
 ansible_ssh_pass: root
+ansible_python_interpreter: /usr/bin/python3
 options:
   - "config.ssh.forward_agent = true"
   - "config.ssh.forward_x11 = true"
