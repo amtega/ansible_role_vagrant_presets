@@ -9,6 +9,7 @@ ansible_ssh_pass: vagrant
 ansible_become: true
 ansible_become_user: root
 ansible_become_method: sudo
+ansible_python_interpreter: /usr/bin/python
 options:
   - "config.ssh.forward_agent = true"
   - "config.ssh.forward_x11 = true"
