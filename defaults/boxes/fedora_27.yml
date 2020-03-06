@@ -1,9 +1,0 @@
----
-# Fedora 27 box
-
-name: fedora-27
-address: generic/fedora27
-distribution: Fedora
-distribution_version: 27
-playbook: bootstrap_redhat.yml
-ansible_python_interpreter: /usr/bin/python3
