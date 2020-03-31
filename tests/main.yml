@@ -2,7 +2,7 @@
 
 # Tasks for testing role
 
-- name: Configure docker sandbox environment
+- name: Configure sandbox environment
   hosts: localhost
   roles:
     - role: amtega.docker_presets
@@ -13,7 +13,7 @@
   tags:
     - sandbox
 
-- name: Run idempotence test
+- name: Setup testing sandbox
   hosts: localhost
   roles:
     - role: amtega.docker_sandbox
@@ -38,10 +38,10 @@
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
           - vagrant_presets_boxes
-            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-29') | list | length > 0
 
           - vagrant_presets_boxes
-            | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-30') | list | length > 0
 
     - name: Test dynamic load of vms presets
       assert:
@@ -55,10 +55,10 @@
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
           - vagrant_presets_vms
-            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-29') | list | length > 0
 
           - vagrant_presets_vms
-            | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-30') | list | length > 0
 
     - name: Test vagrant_presets_add_attributes filter
       assert:
@@ -142,7 +142,7 @@
   tags:
     - idempotence
 
-- name: Cleanup docker sandbox
+- name: Cleanup testing sandbox
   hosts: localhost
   roles:
     - role: amtega.docker_sandbox
